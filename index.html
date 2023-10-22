@@ -7,6 +7,33 @@
   </head>
 
   <style>
+.citation {
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+}
+
+.citation p {
+    font-weight: bold;
+}
+
+.citation ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.citation li {
+    margin-bottom: 10px;
+}
+
+.citation a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.citation a:hover {
+    text-decoration: underline;
+}
+
     body {
       font-family: "sans-serif", sans-serif;
       background-color: #f4f4f4;
@@ -14,6 +41,28 @@
       color: #333;
       max-width: 800px;
       margin: 0 auto;
+    }
+    a{
+      color: #333;
+    }
+    .reading{
+      font-size: 1em;
+      margin: 1.5rem 0;
+      line-height: 1.5;
+      font-family: "Onest", sans-serif;
+    }
+    input[type="button"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    input[type="button"]:hover {
+      background-color: #555;
     }
 
     h1,
@@ -46,6 +95,45 @@
       line-height: 1.5;
       font-family: "Onest", sans-serif;
     }
+    .rosary-instructions {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+      display: none;
+}
+
+.rosary-instructions p {
+    margin-bottom: 15px;
+}
+
+.rosary-instructions strong {
+    color: #555;
+}
+
+.decade-instructions {
+    margin-left: 20px;
+    border-left: 3px solid #eee;
+    padding-left: 15px;
+}
+
+.fatima-prayer {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.dialogue {
+    margin-left: 20px;
+}
+
+.closing-prayer {
+    margin-top: 20px;
+}
+
+
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,8 +143,28 @@
   />
   <body>
     <h1>Pray The Rosary Today</h1>
-    <h2>Apostles' Creed</h2>
-    <p>
+    <input type="button" value="Show Instructions" onclick="showInstructions()" />
+    <div class="rosary-instructions">
+    <p><strong>Make the Sign of the Cross.</strong></p>
+    <p><strong>Holding the Crucifix, say the Apostles' Creed.</strong></p>
+    <p>On the first bead, say an <strong>Our Father</strong>.</p>
+    <p>Say one <strong>Hail Mary</strong> on each of the next three beads.</p>
+    <p>Say the <strong>Glory Be</strong></p>
+    <div class="decade-instructions">
+      <p>For each of the five decades, announce the <strong>Mystery</strong> (perhaps followed by a brief reading from Scripture) then say the <strong>Our Father</strong>.</p>
+        <p>While fingering each of the ten beads of the decade, next say ten <strong>Hail Marys</strong> while meditating on the Mystery. Then say a <strong>Glory Be</strong>.</p>
+    </div>
+    <p class="fatima-prayer">(After finishing each decade, some say the following prayer requested by the Blessed Virgin Mary at Fatima: O my Jesus, forgive us our sins, save us from the fires of hell; lead all souls to Heaven, especially those who have most need of your mercy.)</p>
+    <p>After saying the five decades, say the <strong>Hail, Holy Queen</strong>, followed by this dialogue and prayer:</p>
+    <div class="dialogue">
+        <p>V. Pray for us, O holy Mother of God.</p>
+        <p>R. That we may be made worthy of the promises of Christ.</p>
+    </div>
+    <p class="closing-prayer">Let us pray: O God, whose Only Begotten Son, by his life, Death, and Resurrection, has purchased for us the rewards of eternal life, grant, we beseech thee, that while meditating on these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen.</p>
+</div>
+
+    <h2 id="aposcreed">Apostles' Creed</h2>
+    <p class="reading">
       I believe in God, the Father Almighty, Creator of Heaven and earth; and in
       Jesus Christ, His only Son, Our Lord, Who was conceived by the Holy Ghost,
       born of the Virgin Mary, suffered under Pontius Pilate, was crucified;
@@ -68,16 +176,43 @@
       everlasting. Amen.
     </p>
 
+<h2 id="signofthecross">Our Father</h2>
+<p class="reading" id="ourfather"> Our Father, Who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</p>
+<h2 id="hailMary">Hail Mary</h2>
+<p>Hail Mary,
+Full of Grace,
+The Lord is with thee.
+Blessed art thou among women,
+and blessed is the fruit
+of thy womb, Jesus.
+Holy Mary,
+Mother of God,
+pray for us sinners now,
+and at the hour of our death. Amen.</p>
+
+  
+
     <h2 id="mysteryTitle"></h2>
     <p id="mysteryDescription">[Description here]</p>
-
+    <div id="mysteryRoot"</div>
     <script>
+showInstructions = () => {
+  const instructions = document.querySelector(".rosary-instructions");
+  const button = document.querySelector("input[type=button]");
+  if (instructions.style.display === "none" || instructions.style.display === "") {
+    instructions.style.display = "block";
+    button.value = "Hide Instructions";
+  } else {
+    instructions.style.display = "none";
+    button.value = "Show Instructions";
+  }
+};
       const gloriousMystery = {
         title: "Glorious Mystery",
         description:
           "The Five Glorious Mysteries are traditionally prayed on Wednesdays and, outside the seasons of Advent and Lent, on Sundays:",
         decades: [
-          "The Resurrection\n “But at daybreak on the first day of the week they took the spices they had prepared and went to the tomb.They found the stone rolled away from the tomb; but when they entered, they did not find the body of the Lord Jesus. While they were puzzling over this, behold, two men in dazzling garments appeared to them. They were terrified and bowed their faces to the ground. They said to them, 'Why do you seek the living one among the dead? He is not here, but he has been raised.'” - Luke 24:1-5”",
+          "The Resurrection\n “But at daybreak on the first day of the week they took the spices they had prepared and went to the tomb.They found the stone rolled away from the tomb; but when they entered, they did not find the body of the Lord Jesus. While they were puzzling over this, behold, two men in dazzling garments appeared to them. They were terrified and bowed their faces to the ground. They said to them, 'Why do you seek the living one among the dead? He is not here, but he has been raised.'” - Luke 24:1-5",
           "The Ascension\n“So then the Lord Jesus, after he spoke to them, was taken up into heaven and took his seat at the right hand of God.” - Mark 16:19  ",
           "The Descent of the Holy Spirit\n“When the time for Pentecost was fulfilled, they were all in one place together. And suddenly there came from the sky a noise like a strong driving wind, and it filled the entire house in which they were. Then there appeared to them tongues as of fire, which parted and came to rest on each one of them. And they were all filled with the holy Spirit and began to speak in different tongues, as the Spirit enabled them to proclaim.” - Acts 2:1-4",
           "The Assumption\n“Behold, from now on will all ages call me blessed. The Mighty One has done great things for me, and holy is his name.” - Luke 1:48-49",
@@ -132,10 +267,12 @@
         Saturday: joyfulMystery,
       };
 
-      const today = new Date().toLocaleString("en-US", { weekday: "long" });
+      const date = new Date();
+      const today = date.toLocaleString("en-US", { weekday: "long" });
+      const dayString = date.toLocaleString("en-US", { weekday: "long" });
 
-      document.getElementById("mysteryTitle").textContent =
-        mysteries[today].title;
+      document.getElementById("mysteryTitle").textContent = `${dayString}'s Mystery: ` +
+        mysteries[today].title 
       document.getElementById("mysteryDescription").textContent =
         mysteries[today].description;
 
@@ -157,8 +294,26 @@
 
         decadeList.appendChild(listItem);
       });
-      document.body.appendChild(decadeList);
-      document.body.appendChild(decadeList);
+const mysteryRoot = document.getElementById("mysteryRoot");
+      mysteryRoot.appendChild(decadeList);
+     mysteryRoot.appendChild(decadeList);
     </script>
+<div class="citation">
+    <h2 id="hailHolyQueen">Hail, Holy Queen</h2>
+    <p class="reading">
+      Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope.
+      To thee do we cry, poor banished children of Eve: to thee do we send up
+      our sighs, mourning and weeping in this valley of tears. Turn then, most
+      gracious Advocate, thine eyes of mercy toward us, and after this our
+      exile, show unto us the blessed fruit of thy womb, Jesus, O merciful, O
+      loving, O sweet Virgin Mary! Amen. </p>
+
+    <p>Sources:</p>
+    <ul>
+        <li><a href="https://www.xavier.edu/jesuitresource/online-resources/prayer-index/catholic-prayers#:~:text=trespass%20against%20us.-,And%20lead%20us%20not%20into%20temptation%2C%20but%20deliver%20us%20from,at%20the%20hour%20of%20death." target="_blank" rel="noopener noreferrer">Xavier University Jesuit Resource</a></li>
+        <li><a href="https://www.usccb.org/how-to-pray-the-rosary" target="_blank" rel="noopener noreferrer">USCCB - How to Pray the Rosary</a></li>
+    </ul>
+</div>
+
   </body>
 </html>
